@@ -12,6 +12,13 @@ def processar_arquivo(caminho_csv, caminho_saida, nome_arquivo):
     # padronizar colunas
     df.columns = df.columns.str.lower().str.replace(" ", "_")
 
+    # converter tipos básicos de data
+    for col in df.columns:
+        if "date" in col or col in ["created_at", "updated_at"]:
+            df[col] = pd.to_datetime(df[col], errors="coerce")
+
+    # garantir que a pasta de saída existe
+    os.makedirs(os.path.dirname(caminho_saida), exist_ok=True)
     # salvar parquet
     df.to_parquet(caminho_saida, index=False)
 
@@ -39,8 +46,14 @@ def executar_bronze():
         if os.path.exists(entrada):
             log = processar_arquivo(entrada, saida, nome)
             logs.append(log)
+        else:
+            print(f"Arquivo não encontrado: {entrada}")
 
+
+    os.makedirs("metadata", exist_ok=True)
     pd.DataFrame(logs).to_csv("metadata/ingestion_log.csv", mode='a', index=False)
+
+    print("Camada Bronze executada com sucesso.")
 
 if __name__ == "__main__":
     executar_bronze()
