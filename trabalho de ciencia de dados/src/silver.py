@@ -102,8 +102,17 @@ def processar_silver():
     print(f"\nDistribuição do label:")
     print(df['label_alto_impacto'].value_counts())
 
-    return validar_dados(df)
+    # Executa e exibe o resultado da validação
+    resultado = validar_dados(df)
 
+    print("\n=== Validação do dataset final ===")
+    print(f"Duplicados: {resultado['duplicados']}")
+    print("\nRegras automáticas:")
+    for regra, passou in resultado['regras'].items():
+        icone = "OK" if passou else "FALHA"
+        print(f"  [{icone}] {regra}")
+
+    return resultado
 
 if __name__ == "__main__":
     processar_silver()
