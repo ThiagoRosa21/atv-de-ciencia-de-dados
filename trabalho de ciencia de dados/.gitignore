@@ -1,0 +1,9 @@
+# Arquivos gerados pelo pipeline
+data/bronze/**/*.parquet
+data/silver/*.parquet
+metadata/
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/ 
