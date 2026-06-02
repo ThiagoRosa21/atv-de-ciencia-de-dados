@@ -1,0 +1,8 @@
+Etapa,Colunas afetadas,Técnica,Justificativa
+1 — Remoção (anti-leakage),20,Drop,"Identificadores, URLs, metadados e colunas com >90% nulos"
+2a — Missing Numérico,28,Imputação por Mediana (fit no treino),Robusta a outliers; evita que extremos distorçam a imputação
+2b — Missing Categórico,16,Imputação por Moda (fit no treino),Preserva distribuição original das categorias
+3 — Outliers,"direct_loss_usd, dias_ate_descoberta",Winsorização IQR (fit no treino),Limita extremos sem remover linhas; dataset pequeno (850 linhas)
+4a — Encoding (Label),"['is_public_company', 'earnings_announcement_within_7d']",LabelEncoder (fit no treino),"Colunas binárias — 0/1 suficiente, evita dummies desnecessárias"
+4b — Encoding (OHE),"['attack_vector_primary', 'attack_vector_secondary', 'data_source_type', 'quality_grade', 'country_hq', 'direct_loss_method']",One-Hot Encoding (fit no treino),Colunas nominais sem ordem — evita que modelo assuma ordinalidade
+5 — Scaling,96 colunas numéricas,StandardScaler (fit no treino),Dataset ML-Ready para qualquer algoritmo

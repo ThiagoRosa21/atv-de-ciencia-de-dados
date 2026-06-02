@@ -1,0 +1,53 @@
+{
+  "timestamp": "2026-06-02T12:59:32.770243",
+  "camadas": [
+    {
+      "Camada": "Bronze — incidents",
+      "Linhas": 850,
+      "Colunas": 32,
+      "Observação": "Dados brutos preservados"
+    },
+    {
+      "Camada": "Bronze — financial",
+      "Linhas": 778,
+      "Colunas": 19,
+      "Observação": "Dados brutos preservados"
+    },
+    {
+      "Camada": "Bronze — market",
+      "Linhas": 358,
+      "Colunas": 31,
+      "Observação": "Dados brutos preservados"
+    },
+    {
+      "Camada": "Silver — dataset_final",
+      "Linhas": 850,
+      "Colunas": 65,
+      "Observação": "Merge left em incidents; financial/market enriquecem"
+    },
+    {
+      "Camada": "Gold — treino",
+      "Linhas": 680,
+      "Colunas": 97,
+      "Observação": "80% do dataset, stratificado pelo label"
+    },
+    {
+      "Camada": "Gold — teste",
+      "Linhas": 170,
+      "Colunas": 97,
+      "Observação": "20% do dataset, stratificado pelo label"
+    }
+  ],
+  "validacoes": {
+    "treino_teste_somam_silver": true,
+    "silver_preserva_grao": true,
+    "target_fora_do_Xtrain": true,
+    "leakage_removido": true
+  },
+  "modelo": {
+    "algoritmo": "DecisionTreeClassifier",
+    "max_depth": 5,
+    "acuracia": 0.9176,
+    "f1_score": 0.9
+  }
+}
